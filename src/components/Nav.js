@@ -12,6 +12,13 @@ function Nav(props) {
     navLinksClasses += ' nav-links__has-hidden';
   }
 
+  let cartSize =
+    cart.length > 0
+      ? cart
+          .map(item => item.quantity)
+          .reduce((prev, current) => prev + current)
+      : 0;
+
   return (
     <section className="nav-component">
       <div className="contained">
@@ -25,7 +32,7 @@ function Nav(props) {
             <div className="nav-links__cart-container">
               <Link to="/cart">
                 <span>Cart</span>
-                <span className={cartSizeClasses}>{cart.length}</span>
+                <span className={cartSizeClasses}>{cartSize}</span>
               </Link>
             </div>
           </div>

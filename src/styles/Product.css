@@ -4,7 +4,7 @@
 .product-page__img-container {
   width: 100%;
   padding-top: calc(10vh + 30rem);
-  border-radius: 0.4rem;
+  border-radius: var(--border-radius);
   position: relative;
   overflow: hidden;
 }
@@ -57,7 +57,7 @@
   padding: 0.8rem 1rem;
   text-align: center;
   border: 1px solid #ddd;
-  border-radius: 0.4rem;
+  border-radius: var(--border-radius);
   cursor: pointer;
   transition: border 0.15s, background-color 0.2s;
   background-color: #fff;
@@ -69,11 +69,20 @@
 }
 .product-page__shoe-size:active {
   background-color: var(--off-white);
+  box-shadow: 0px 0.2rem 0.7rem rgba(0, 0, 0, 0.07);
   transition: border 0.15s, background-color 0s;
 }
-
-.product-page__size-selected {
+.product-page__shoe-size-selected {
   border: 1px solid #444;
+  box-shadow: 0px 0.2rem 0.7rem rgba(0, 0, 0, 0.07);
+}
+.product-page__shoe-size-unavailable {
+  cursor: default;
+  background-color: var(--off-white);
+  color: var(--off-white-2);
+}
+.product-page__shoe-size-unavailable:hover {
+  border: 1px solid #ddd;
 }
 
 .product-page__button {

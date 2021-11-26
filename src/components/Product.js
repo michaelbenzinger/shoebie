@@ -9,19 +9,6 @@ import { addToCart } from '../actions/cartActions';
 import { formatUSD } from './Cart';
 
 const featureImageSize = imageSizes[2];
-const shoeSizes = [
-  { mens: 4, available: true },
-  { mens: 5, available: true },
-  { mens: 6, available: true },
-  { mens: 7, available: true },
-  { mens: 8, available: true },
-  { mens: 9, available: true },
-  { mens: 10, available: true },
-  { mens: 11, available: true },
-  { mens: 12, available: true },
-  { mens: 13, available: true },
-  { mens: 14, available: true },
-];
 
 function Product(props) {
   let { product } = props;
@@ -57,6 +44,8 @@ function Product(props) {
   function addToCartHandler(useProduct) {
     const newProduct = JSON.parse(JSON.stringify(useProduct));
     newProduct.size = size;
+    newProduct.quantity = 1;
+    newProduct.dateAdded = Date.now();
     props.addToCart(newProduct);
   }
 
@@ -98,14 +87,19 @@ function Product(props) {
                 {formatUSD(useProduct.productInfo.price, 0)}
               </p>
               <div className="product-page__shoe-sizes">
-                {shoeSizes.map(shoeSize => {
-                  const selectedClass =
-                    shoeSize.mens === size
-                      ? 'product-page__shoe-size product-page__size-selected'
-                      : 'product-page__shoe-size';
+                {useProduct.productInfo.sizes.map(shoeSize => {
+                  let selectedClass = 'product-page__shoe-size';
+                  let clickHandler = sizeHandler;
+                  if (shoeSize.available === false) {
+                    clickHandler = null;
+                    selectedClass += ' product-page__shoe-size-unavailable';
+                  }
+                  if (shoeSize.mens === size)
+                    selectedClass += ' product-page__shoe-size-selected';
+
                   return (
                     <div
-                      onClick={sizeHandler}
+                      onClick={clickHandler}
                       data-size={shoeSize.mens}
                       key={shoeSize.mens}
                       className={selectedClass}

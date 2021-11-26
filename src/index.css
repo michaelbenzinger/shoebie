@@ -1,9 +1,22 @@
 :root {
   --page-margin: 2rem;
+  --border-radius: 0;
   --off-white: #fbf9f9;
+  --off-white-2: #b8aeae;
+  --middle-gray: rgb(114, 112, 112);
+  --dark-gray: rgb(65, 63, 63);
   --brand-red-1: rgb(202, 81, 81);
   --brand-red-2: rgb(223, 91, 91);
   --brand-red-3: rgb(231, 116, 116);
+  --select-border: #777;
+  --select-focus: blue;
+  --select-arrow: var(--select-border);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 body {
@@ -27,6 +40,12 @@ button {
 .contained {
   max-width: min(calc(100% - calc(var(--page-margin) * 2)), 1140px);
   margin: 0 auto;
+}
+
+select {
+  padding: 0.2rem;
+  padding-right: 1rem;
+  font-size: 0.9rem;
 }
 
 a {
