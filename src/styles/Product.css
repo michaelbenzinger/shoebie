@@ -1,0 +1,85 @@
+.product-component > div {
+  margin-top: 2rem;
+}
+.product-page__img-container {
+  width: 100%;
+  padding-top: calc(10vh + 30rem);
+  border-radius: 0.4rem;
+  position: relative;
+  overflow: hidden;
+}
+.product-page__img {
+  position: absolute;
+  --zoom-percent: 0%;
+  top: calc(var(--zoom-percent) * -0.5);
+  left: calc(var(--zoom-percent) * -0.5);
+  width: calc(var(--zoom-percent) + 100%);
+  height: calc(var(--zoom-percent) + 100%);
+  object-fit: cover;
+  animation: fade-in 0.5s;
+}
+.product-page__page-container {
+  display: flex;
+  flex-direction: row;
+  column-gap: 4rem;
+}
+.product-page__main {
+  flex: 2;
+}
+.product-page__sidebar {
+  flex: 1;
+}
+.product-page__name {
+  font-weight: 500;
+  font-size: 1.8rem;
+  margin: 0.5rem 0 0 0;
+}
+.product-page__category {
+  color: rgb(107, 107, 107);
+  font-weight: 400;
+  font-size: 1.1rem;
+  margin: 0.6rem 0 0 0;
+}
+.product-page__price {
+  font-weight: 400;
+  font-size: 1.1rem;
+  margin: 1.4rem 0 0 0;
+}
+.product-page__shoe-sizes {
+  margin: 2rem 0 0 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 0.5rem;
+  row-gap: 0.5rem;
+}
+.product-page__shoe-size {
+  font-size: 0.95rem;
+  padding: 0.8rem 1rem;
+  text-align: center;
+  border: 1px solid #ddd;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  transition: border 0.15s, background-color 0.2s;
+  background-color: #fff;
+}
+.product-page__shoe-size:hover {
+  border: 1px solid #444;
+  transition: border 0.2s;
+  transition: border 0.15s, background-color 0.2s;
+}
+.product-page__shoe-size:active {
+  background-color: var(--off-white);
+  transition: border 0.15s, background-color 0s;
+}
+
+.product-page__size-selected {
+  border: 1px solid #444;
+}
+
+.product-page__button {
+  margin-top: 2rem;
+  padding: 1.1rem 0rem;
+  border-radius: 100rem;
+  border: 0px;
+  font-size: 1rem;
+}

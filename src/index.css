@@ -1,5 +1,9 @@
 :root {
   --page-margin: 2rem;
+  --off-white: #fbf9f9;
+  --brand-red-1: rgb(202, 81, 81);
+  --brand-red-2: rgb(223, 91, 91);
+  --brand-red-3: rgb(231, 116, 116);
 }
 
 body {
@@ -16,7 +20,35 @@ code {
     monospace;
 }
 
+button {
+  cursor: pointer;
+}
+
 .contained {
   max-width: min(calc(100% - calc(var(--page-margin) * 2)), 1140px);
   margin: 0 auto;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+.button-full-width {
+  width: 100%;
+}
+.button-red {
+  background-color: var(--brand-red-2);
+  transition: background-color 0.2s;
+  color: white;
+}
+.button-red:hover {
+  background-color: var(--brand-red-3);
+}
+.button-red:active {
+  background-color: var(--brand-red-2);
+  transition: background-color 0s;
 }

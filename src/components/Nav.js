@@ -1,7 +1,17 @@
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import '../styles/Nav.css';
 
-function Nav() {
+function Nav(props) {
+  const { cart } = props;
+
+  let cartSizeClasses = 'nav-links__cart-size';
+  let navLinksClasses = 'nav-links';
+  if (cart.length === 0) {
+    cartSizeClasses += ' nav-links__hidden';
+    navLinksClasses += ' nav-links__has-hidden';
+  }
+
   return (
     <section className="nav-component">
       <div className="contained">
@@ -9,10 +19,15 @@ function Nav() {
           <Link to="/">
             <h2>Shoebie</h2>
           </Link>
-          <div className="nav-links">
+          <div className={navLinksClasses}>
             <Link to="/">Home</Link>
-            <Link to="/all">All Products</Link>
-            <Link to="/cart">Cart</Link>
+            <Link to="/products">All Products</Link>
+            <div className="nav-links__cart-container">
+              <Link to="/cart">
+                <span>Cart</span>
+                <span className={cartSizeClasses}>{cart.length}</span>
+              </Link>
+            </div>
           </div>
         </div>
       </div>
@@ -20,4 +35,8 @@ function Nav() {
   );
 }
 
-export default Nav;
+const mapStateToProps = state => ({
+  cart: state.cart.cart,
+});
+
+export default connect(mapStateToProps)(Nav);

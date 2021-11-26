@@ -35,4 +35,22 @@ export const myProducts = [
       price: 70,
     },
   },
+  {
+    id: 'v13tnV6D9lw',
+    productInfo: {
+      name: 'Old School Hi-Top',
+      brand: 'Nike',
+      category: 'Skate',
+      price: 95,
+    },
+  },
+  {
+    id: 'VleZz-ItaRI',
+    productInfo: {
+      name: 'Workhorse High',
+      brand: 'Timberland',
+      category: 'Boot',
+      price: 120,
+    },
+  },
 ];

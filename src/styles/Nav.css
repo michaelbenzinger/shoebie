@@ -1,6 +1,6 @@
 .nav-component {
   color: white;
-  background-color: rgb(204, 70, 70);
+  background-color: var(--brand-red-1);
 }
 
 .nav {
@@ -9,11 +9,37 @@
   align-items: center;
 }
 
+.nav-links {
+  display: flex;
+  transform: translateX(0);
+  transition: transform 0.5s;
+}
+
 .nav-links a {
-  margin-left: 1rem;
+  margin-left: 2rem;
 }
 .nav-links a:hover {
   text-decoration: underline;
+}
+
+.nav-links__cart-size {
+  font-size: 0.8rem;
+  display: inline-block;
+  position: relative;
+  bottom: 0.3rem;
+  background-color: white;
+  color: black;
+  margin-left: 0.5rem;
+  padding: 0.2rem 0.4rem;
+  border-radius: 10rem;
+  opacity: 1;
+  transition: opacity 0.2s;
+}
+.nav-links__hidden {
+  opacity: 0;
+}
+.nav-links__has-hidden {
+  transform: translateX(1.7rem);
 }
 
 .nav a {
