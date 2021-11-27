@@ -28,7 +28,7 @@ function Nav(props) {
           </Link>
           <div className={navLinksClasses}>
             <Link to="/">Home</Link>
-            <Link to="/products">All Products</Link>
+            <Link to="/products">Products</Link>
             <div className="nav-links__cart-container">
               <Link to="/cart">
                 <span>Cart</span>

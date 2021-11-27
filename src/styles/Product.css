@@ -79,9 +79,15 @@
 .product-page__shoe-size-unavailable {
   cursor: default;
   background-color: var(--off-white);
-  color: var(--off-white-2);
+  color: var(--off-white-3);
 }
 .product-page__shoe-size-unavailable:hover {
+  border: 1px solid #ddd;
+}
+.product-page__shoe-size-unavailable:active {
+  box-shadow: none;
+  background-color: var(--off-white);
+  color: var(--off-white-3);
   border: 1px solid #ddd;
 }
 

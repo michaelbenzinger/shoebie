@@ -1,8 +1,10 @@
 :root {
   --page-margin: 2rem;
   --border-radius: 0;
-  --off-white: #fbf9f9;
-  --off-white-2: #b8aeae;
+  --off-white-0: #f8f5f5;
+  --off-white-1: #f6f2f2;
+  --off-white-2: #f3ecec;
+  --off-white-3: #b9abab;
   --middle-gray: rgb(114, 112, 112);
   --dark-gray: rgb(65, 63, 63);
   --brand-red-1: rgb(202, 81, 81);
