@@ -24,7 +24,7 @@ function Nav(props) {
       <div className="contained">
         <div className="nav">
           <Link to="/">
-            <h2>Shoebie</h2>
+            <h2 className="nav-brand">Shoebie</h2>
           </Link>
           <div className={navLinksClasses}>
             <Link to="/">Home</Link>

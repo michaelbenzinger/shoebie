@@ -18,6 +18,21 @@
   object-fit: cover;
   animation: fade-in 0.5s;
 }
+
+.product-page__attribution {
+  width: 100%;
+  color: var(--middle-gray);
+  font-size: 0.85rem;
+  text-align: center;
+  padding: 0.5rem 0 0;
+}
+.product-page__attribution a {
+  text-decoration: underline;
+}
+.product-page__attribution a:hover {
+  color: black;
+}
+
 .product-page__page-container {
   display: flex;
   flex-direction: row;
@@ -30,7 +45,7 @@
   flex: 1;
 }
 .product-page__name {
-  font-weight: 500;
+  font-weight: 600;
   font-size: 1.8rem;
   margin: 0.5rem 0 0 0;
 }
@@ -38,12 +53,21 @@
   color: rgb(107, 107, 107);
   font-weight: 400;
   font-size: 1.1rem;
-  margin: 0.6rem 0 0 0;
+  margin: 0.4rem 0 0 0;
 }
 .product-page__price {
   font-weight: 400;
   font-size: 1.1rem;
-  margin: 1.4rem 0 0 0;
+  margin: 1rem 0 0 0;
+}
+.product-page__sale-price {
+  font-weight: 500;
+  margin-right: 0.5rem;
+}
+.product-page__price-slash {
+  font-weight: 400;
+  color: var(--middle-light-gray);
+  text-decoration: line-through;
 }
 .product-page__shoe-sizes {
   margin: 2rem 0 0 0;

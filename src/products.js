@@ -18,6 +18,7 @@ export const myProducts = [
         { mens: 13, available: true },
         { mens: 14, available: true },
       ],
+      dateListed: 1638028678376,
     },
   },
   {
@@ -27,6 +28,7 @@ export const myProducts = [
       brand: 'Nike',
       category: 'Lifestyle',
       price: 75,
+      salePrice: 60,
       sizes: [
         { mens: 4, available: true },
         { mens: 5, available: true },
@@ -39,6 +41,7 @@ export const myProducts = [
         { mens: 12, available: true },
         { mens: 13, available: true },
       ],
+      dateListed: 1638028678375,
     },
   },
   {
@@ -57,6 +60,7 @@ export const myProducts = [
         { mens: 11, available: false },
         { mens: 12, available: true },
       ],
+      dateListed: 1638028678374,
     },
   },
   {
@@ -66,6 +70,7 @@ export const myProducts = [
       brand: 'New Balance',
       category: 'Lifestyle',
       price: 85,
+      salePrice: 75,
       sizes: [
         { mens: 4, available: true },
         { mens: 5.5, available: true },
@@ -79,6 +84,7 @@ export const myProducts = [
         { mens: 10, available: true },
         { mens: 11, available: true },
       ],
+      dateListed: 1638028678373,
     },
   },
   {
@@ -102,6 +108,7 @@ export const myProducts = [
         { mens: 13, available: true },
         { mens: 14, available: true },
       ],
+      dateListed: 1638028678372,
     },
   },
   {
@@ -122,6 +129,7 @@ export const myProducts = [
         { mens: 12, available: false },
         { mens: 13, available: true },
       ],
+      dateListed: 1638028678371,
     },
   },
   {
@@ -145,6 +153,7 @@ export const myProducts = [
         { mens: 13, available: true },
         { mens: 14, available: true },
       ],
+      dateListed: 1638028678370,
     },
   },
   {
@@ -163,6 +172,7 @@ export const myProducts = [
         { mens: 10, available: true },
         { mens: 11, available: true },
       ],
+      dateListed: 1638028678369,
     },
   },
   {
@@ -185,6 +195,7 @@ export const myProducts = [
         { mens: 13, available: true },
         { mens: 14, available: true },
       ],
+      dateListed: 1638028678368,
     },
   },
   {
@@ -194,6 +205,7 @@ export const myProducts = [
       brand: 'Timberland',
       category: 'Boot',
       price: 130,
+      salePrice: 105,
       sizes: [
         { mens: 5, available: false },
         { mens: 6, available: false },
@@ -205,6 +217,7 @@ export const myProducts = [
         { mens: 12, available: false },
         { mens: 13, available: true },
       ],
+      dateListed: 1638028678367,
     },
   },
   {
@@ -225,6 +238,7 @@ export const myProducts = [
         { mens: 12, available: false },
         { mens: 13, available: true },
       ],
+      dateListed: 1638028678366,
     },
   },
   {
@@ -247,6 +261,7 @@ export const myProducts = [
         { mens: 11, available: true },
         { mens: 12, available: true },
       ],
+      dateListed: 1638028678365,
     },
   },
   {
@@ -270,6 +285,7 @@ export const myProducts = [
         { mens: 13, available: true },
         { mens: 14, available: true },
       ],
+      dateListed: 1638028678364,
     },
   },
 ];

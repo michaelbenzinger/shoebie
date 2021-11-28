@@ -12,6 +12,7 @@ export function formatUSD(num, digits) {
 
 function Cart(props) {
   const { cart } = props;
+  const freeShippingThreshold = 100;
 
   const quantities = [];
   for (let i = 1; i <= 12; i++) {
@@ -22,13 +23,54 @@ function Cart(props) {
     cart.length === 0
       ? 0
       : cart
-          .map(item => item.productInfo.price * item.quantity)
+          .map(item => {
+            let price = item.productInfo.salePrice || item.productInfo.price;
+            return price * item.quantity;
+          })
           .reduce((prev, current) => prev + current);
 
-  const shipping = subtotal >= 50 ? 0 : 8;
+  const shipping = subtotal >= freeShippingThreshold ? 0 : 8;
   const tax = subtotal * 0.09;
   const total = subtotal + shipping + tax;
 
+  if (cart.length === 0) {
+    return (
+      <div className="cart-component">
+        <div className="contained">
+          <h1>Cart</h1>
+          <div className="cart__container">
+            <div className="cart__main">
+              <p>There are no items in your cart.</p>
+            </div>
+            <div className="cart__sidebar">
+              <h2 className="cart__sidebar-title">Summary</h2>
+              <div className="cart__sidebar-row cart__sidebar-row-title">
+                <p className="cart__sidebar-subtotal-title">Subtotal</p>
+                <p className="cart__sidebar-subtotal">{formatUSD(0)}</p>
+              </div>
+              <div className="cart__sidebar-row cart__sidebar-row-shipping">
+                <p className="cart__sidebar-shipping-title">
+                  {'Estimated Shipping & Handling'}
+                </p>
+                <p className="cart__sidebar-shipping">{formatUSD(0)}</p>
+              </div>
+              <div className="cart__sidebar-row cart__sidebar-row-tax">
+                <p className="cart__sidebar-tax-title">Estimated Tax</p>
+                <p className="cart__sidebar-tax">{formatUSD(0)}</p>
+              </div>
+              <div className="cart__sidebar-row cart__sidebar-row-total">
+                <p className="cart__sidebar-total-title">Total</p>
+                <p className="cart__sidebar-total">{formatUSD(0)}</p>
+              </div>
+              <button className="cart__button button-full-width button-red button-disabled">
+                Checkout
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="cart-component">
       <div className="contained">
@@ -54,9 +96,22 @@ function Cart(props) {
                       <h3 className="cart__item-name">
                         {item.productInfo.name}
                       </h3>
-                      <h3 className="cart__item-price">
-                        {formatUSD(item.productInfo.price * item.quantity)}
-                      </h3>
+                      {item.productInfo.salePrice ? (
+                        <h3 className="cart__item-price">
+                          <span className="cart__item-price-slash">
+                            {formatUSD(item.productInfo.price * item.quantity)}
+                          </span>
+                          <span className="cart__item-sale-price">
+                            {formatUSD(
+                              item.productInfo.salePrice * item.quantity
+                            )}
+                          </span>
+                        </h3>
+                      ) : (
+                        <h3 className="cart__item-price">
+                          {formatUSD(item.productInfo.price * item.quantity)}
+                        </h3>
+                      )}
                     </div>
                     <p className="cart__item-category">
                       {item.productInfo.brand} | {item.productInfo.category}

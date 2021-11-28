@@ -5,6 +5,7 @@
   --off-white-1: #f6f2f2;
   --off-white-2: #f3ecec;
   --off-white-3: #b9abab;
+  --middle-light-gray: rgb(139, 136, 136);
   --middle-gray: rgb(114, 112, 112);
   --dark-gray: rgb(65, 63, 63);
   --brand-red-1: rgb(202, 81, 81);
@@ -23,8 +24,8 @@
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: 'Barlow', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+    'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -33,6 +34,15 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+h1,
+h3,
+h4 {
+  font-weight: 600;
+}
+h2 {
+  font-weight: 800;
 }
 
 button {
@@ -72,4 +82,12 @@ a:hover {
 .button-red:active {
   background-color: var(--brand-red-2);
   transition: background-color 0s;
+}
+
+.button-disabled,
+.button-disabled:hover,
+.button-disabled:active {
+  background-color: var(--off-white-0);
+  color: var(--middle-gray);
+  cursor: default;
 }

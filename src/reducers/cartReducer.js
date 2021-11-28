@@ -52,7 +52,6 @@ export default function cartReducer(state = initialState, action) {
         cart: [...state.cart],
       };
     case DELETE_ITEM:
-      console.log(action.payload);
       state.cart.splice(action.payload, 1);
       return {
         state,

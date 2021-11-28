@@ -14,7 +14,9 @@ export const imageSize = imageSizes[2];
 function All(props) {
   const [products, setProducts] = useState(myProducts);
   const [filters, setFilters] = useState({});
+  const [sort, setSort] = useState('dateListed,-1');
   const [filteredProducts, setFilteredProducts] = useState(products);
+  const [fetching, setFetching] = useState(false);
 
   const productCategories = [
     ...new Set(products.map(item => item.productInfo.category)),
@@ -25,11 +27,10 @@ function All(props) {
   ];
   productBrands.sort();
 
-  useEffect(() => {
-    if (products.find(product => !product.urls)) {
-      getPhotos();
-    }
-  });
+  if (products.find(product => !product.urls) && !fetching) {
+    setFetching(true);
+    getPhotos();
+  }
 
   useEffect(() => {
     // setFilteredProducts() by appling filters state to products state
@@ -45,8 +46,28 @@ function All(props) {
         productsTemp.push(product);
       }
     });
+    sortProducts(productsTemp);
     setFilteredProducts(productsTemp);
-  }, [filters]);
+  }, [filters, sort]);
+
+  function sortProducts(array) {
+    const [criteria, direction] = sort.split(',');
+    array.sort((first, second) => {
+      let val1 = first.productInfo[criteria];
+      let val2 = second.productInfo[criteria];
+      // Sort by salePrice if the product has one
+      if (criteria === 'price') {
+        if (first.productInfo.salePrice) val1 = first.productInfo.salePrice;
+        if (second.productInfo.salePrice) val2 = second.productInfo.salePrice;
+      }
+      if (val1 < val2) {
+        return -1 * direction;
+      } else if (val1 > val2) {
+        return 1 * direction;
+      }
+      return 0;
+    });
+  }
 
   function getPhotos() {
     console.log('Querying API');
@@ -61,6 +82,8 @@ function All(props) {
             products.map(product => {
               if (product.id === json.id) {
                 product.urls = json.urls;
+                product.user = json.user.name;
+                product.userLink = json.user.links.html;
               }
               return product;
             })
@@ -97,6 +120,33 @@ function All(props) {
         <h1>Products</h1>
         <div className="products-container">
           <div className="products-sidebar">
+            <div className="products-filter-container products-filter-sorts">
+              <h3 className="products-filter-label products-filter-sort-label">
+                Sort By
+              </h3>
+              <select
+                name="filter-sort"
+                id="filter-sort"
+                value={sort}
+                className="products-filter-sort"
+                onChange={e => {
+                  setSort(e.target.value);
+                }}
+              >
+                <option key={'dateListed,1'} value={'dateListed,-1'}>
+                  Newest
+                </option>
+                <option key={'name,1'} value={'name,1'}>
+                  Alphabetical
+                </option>
+                <option key={'price,1'} value={'price,1'}>
+                  Price Low to High
+                </option>
+                <option key={'price,-1'} value={'price,-1'}>
+                  Price High to Low
+                </option>
+              </select>
+            </div>
             <div className="products-filter-container products-filter-categories">
               <h3 className="products-filter-label products-filter-categories-label">
                 Category
@@ -142,14 +192,33 @@ function All(props) {
           <div className="products-main">
             <div className="products-grid">
               {filteredProducts.map(product => (
-                <Link
-                  key={product.id}
-                  onClick={() => {
-                    props.setProduct(product);
-                  }}
-                  to={`/product/${product.id}`}
-                >
-                  <div className="product-card">
+                <div key={product.id} className="product-card">
+                  <div className="product-card__attribution">
+                    Photo by{' '}
+                    <a
+                      href={`${product.userLink}?utm_source=michaelbenzinger_shopping_cart&utm_medium=referral`}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {product.user}
+                    </a>{' '}
+                    on{' '}
+                    <a
+                      href={
+                        'https://unsplash.com/?utm_source=michaelbenzinger_shopping_cart&utm_medium=referral'
+                      }
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Unsplash
+                    </a>
+                  </div>
+                  <Link
+                    onClick={() => {
+                      props.setProduct(product);
+                    }}
+                    to={`/product/${product.id}`}
+                  >
                     <div className="product-card__img-container">
                       {product.urls ? (
                         <img
@@ -169,12 +238,23 @@ function All(props) {
                         {product.productInfo.brand} –{' '}
                         {product.productInfo.category}
                       </p>
-                      <p className="product-card__price">
-                        {formatUSD(product.productInfo.price, 0)}
-                      </p>
+                      {product.productInfo.salePrice ? (
+                        <p className="product-card__price">
+                          <span className="product-card__sale-price">
+                            {formatUSD(product.productInfo.salePrice, 0)}
+                          </span>
+                          <span className="product-card__price-slash">
+                            {formatUSD(product.productInfo.price, 0)}
+                          </span>
+                        </p>
+                      ) : (
+                        <p className="product-card__price">
+                          {formatUSD(product.productInfo.price, 0)}
+                        </p>
+                      )}
                     </div>
-                  </div>
-                </Link>
+                  </Link>
+                </div>
               ))}
             </div>
           </div>
