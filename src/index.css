@@ -83,6 +83,18 @@ a:hover {
   background-color: var(--brand-red-2);
   transition: background-color 0s;
 }
+.button-gray {
+  background-color: var(--dark-gray);
+  transition: background-color 0.2s;
+  color: white;
+}
+.button-gray:hover {
+  background-color: var(--middle-gray);
+}
+.button-gray:active {
+  background-color: var(--dark-gray);
+  transition: background-color 0s;
+}
 
 .button-disabled,
 .button-disabled:hover,

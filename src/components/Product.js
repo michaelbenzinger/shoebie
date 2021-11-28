@@ -1,7 +1,7 @@
 import { UNSPLASH_ACCESS_KEY } from '../config';
 import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { imageSizes } from './All.js';
 import { myProducts } from '../products';
 import '../styles/Product.css';
@@ -9,11 +9,13 @@ import { addToCart } from '../actions/cartActions';
 import { formatUSD } from './Cart';
 
 const featureImageSize = imageSizes[2];
+let hideTimeout;
 
 function Product(props) {
   let { product } = props;
   const [newProduct, setNewProduct] = useState({});
   const [size, setSize] = useState(null);
+  const [viewingModal, setViewingModal] = useState(false);
   const { id } = useParams();
 
   useEffect(() => {
@@ -44,11 +46,31 @@ function Product(props) {
   }
 
   function addToCartHandler(useProduct) {
+    displayModal();
     const newProduct = JSON.parse(JSON.stringify(useProduct));
     newProduct.size = size;
     newProduct.quantity = 1;
     newProduct.dateAdded = Date.now();
     props.addToCart(newProduct);
+  }
+
+  function displayModal() {
+    setViewingModal(true);
+    hideTimeout = setTimeout(() => {
+      hideModal();
+    }, 5000);
+  }
+
+  function hideModal() {
+    const modal = document.querySelector('.added-modal');
+    const modalBackground = document.querySelector('.added-modal-background');
+    if (!modal || !modalBackground) return;
+    modal.style = 'opacity:0;';
+    modalBackground.style = 'opacity:0;';
+    clearTimeout(hideTimeout);
+    setTimeout(() => {
+      setViewingModal(false);
+    }, 250);
   }
 
   if (!product.productInfo && !newProduct.productInfo) {
@@ -74,10 +96,66 @@ function Product(props) {
       addToCartMethod = null;
     }
 
+    // let productComponentClasses = viewingModal
+    //   ? 'product-component product-component-darkened'
+    //   : 'product-component';
+    let productComponentClasses = 'product-component';
+
     return (
-      <div className="product-component">
+      <div className={productComponentClasses}>
+        {!viewingModal ? null : <div className="added-modal-background" />}
         <div className="contained">
           <div className="product-page__page-container">
+            {!viewingModal ? null : (
+              <div className="added-modal">
+                <h3 className="added-modal__title-bar">
+                  <span className="added-modal__title">Added item to cart</span>
+                  <span onClick={hideModal} className="added-modal__quit">
+                    ×
+                  </span>
+                </h3>
+                <div className="added-modal__product-info">
+                  <div className="added-modal__img-container">
+                    <img
+                      className="added-modal__img"
+                      src={useProduct.urls.thumb}
+                    />
+                  </div>
+                  <div className="added-modal__info-container">
+                    <h4 className="added-modal__product-name">
+                      {useProduct.productInfo.name}
+                    </h4>
+                    <p className="added-modal__product-category">
+                      {useProduct.productInfo.brand} –{' '}
+                      {useProduct.productInfo.category}
+                    </p>
+                    <p className="added-modal__product-size">
+                      M {size} / W {size + 1.5}
+                    </p>
+                    {useProduct.productInfo.salePrice ? (
+                      <p className="added-modal__product-price">
+                        <span className="added-modal__product-sale-price">
+                          {formatUSD(useProduct.productInfo.salePrice, 0)}
+                        </span>
+                        <span className="added-modal__product-price-slash">
+                          {formatUSD(useProduct.productInfo.price, 0)}
+                        </span>
+                      </p>
+                    ) : (
+                      <p className="added-modal__product-price">
+                        {formatUSD(useProduct.productInfo.price, 0)}
+                      </p>
+                    )}
+                  </div>
+                </div>
+                <Link to="/cart">
+                  <button className="added-modal__cart-button button-gray">
+                    View Cart
+                  </button>
+                </Link>
+              </div>
+            )}
+
             <div className="product-page__main">
               <div className="product-page__img-container">
                 <img

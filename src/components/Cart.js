@@ -12,7 +12,7 @@ export function formatUSD(num, digits) {
 
 function Cart(props) {
   const { cart } = props;
-  const freeShippingThreshold = 100;
+  const freeShippingThreshold = 70;
 
   const quantities = [];
   for (let i = 1; i <= 12; i++) {
