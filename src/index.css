@@ -103,3 +103,9 @@ a:hover {
   color: var(--middle-gray);
   cursor: default;
 }
+
+@media screen and (max-width: 800px) {
+  :root {
+    --page-margin: 1rem;
+  }
+}

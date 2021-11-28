@@ -12,7 +12,8 @@
   align-items: center;
 }
 .nav-brand {
-  margin: 1rem 0;
+  font-size: 1.7rem;
+  margin: 1.2rem 0;
 }
 .nav-links {
   font-size: 1.1rem;

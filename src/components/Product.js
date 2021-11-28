@@ -18,6 +18,8 @@ function Product(props) {
   const [viewingModal, setViewingModal] = useState(false);
   const { id } = useParams();
 
+  window.scrollTo(0, 0);
+
   useEffect(() => {
     // If there is no product stored in state, fetch it from the API
     if (!product.productInfo && !newProduct.productInfo) {
@@ -117,6 +119,7 @@ function Product(props) {
                 <div className="added-modal__product-info">
                   <div className="added-modal__img-container">
                     <img
+                      alt={useProduct.productInfo.name}
                       className="added-modal__img"
                       src={useProduct.urls.thumb}
                     />

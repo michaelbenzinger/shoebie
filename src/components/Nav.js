@@ -27,7 +27,7 @@ function Nav(props) {
             <h2 className="nav-brand">Shoebie</h2>
           </Link>
           <div className={navLinksClasses}>
-            <Link to="/">Home</Link>
+            {/* <Link to="/">Home</Link> */}
             <Link to="/products">Products</Link>
             <div className="nav-links__cart-container">
               <Link to="/cart">

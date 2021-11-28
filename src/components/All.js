@@ -11,6 +11,25 @@ import '../styles/All.css';
 export const imageSizes = ['raw', 'full', 'regular', 'small', 'thumb'];
 export const imageSize = imageSizes[2];
 
+function sortProducts(array, sort) {
+  const [criteria, direction] = sort.split(',');
+  array.sort((first, second) => {
+    let val1 = first.productInfo[criteria];
+    let val2 = second.productInfo[criteria];
+    // Sort by salePrice if the product has one
+    if (criteria === 'price') {
+      if (first.productInfo.salePrice) val1 = first.productInfo.salePrice;
+      if (second.productInfo.salePrice) val2 = second.productInfo.salePrice;
+    }
+    if (val1 < val2) {
+      return -1 * direction;
+    } else if (val1 > val2) {
+      return 1 * direction;
+    }
+    return 0;
+  });
+}
+
 function All(props) {
   const [products, setProducts] = useState(myProducts);
   const [filters, setFilters] = useState({});
@@ -46,28 +65,9 @@ function All(props) {
         productsTemp.push(product);
       }
     });
-    sortProducts(productsTemp);
+    sortProducts(productsTemp, sort);
     setFilteredProducts(productsTemp);
   }, [filters, sort]);
-
-  function sortProducts(array) {
-    const [criteria, direction] = sort.split(',');
-    array.sort((first, second) => {
-      let val1 = first.productInfo[criteria];
-      let val2 = second.productInfo[criteria];
-      // Sort by salePrice if the product has one
-      if (criteria === 'price') {
-        if (first.productInfo.salePrice) val1 = first.productInfo.salePrice;
-        if (second.productInfo.salePrice) val2 = second.productInfo.salePrice;
-      }
-      if (val1 < val2) {
-        return -1 * direction;
-      } else if (val1 > val2) {
-        return 1 * direction;
-      }
-      return 0;
-    });
-  }
 
   function getPhotos() {
     console.log('Querying API');

@@ -21,6 +21,10 @@
   overflow: hidden;
   position: relative;
 }
+.product-card a:hover {
+  text-decoration: none;
+}
+
 .product-card:hover .product-card__attribution {
   top: 0rem;
   opacity: 1;
