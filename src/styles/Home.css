@@ -21,7 +21,7 @@
   max-width: 8ch;
   color: white;
   margin: 0 0 0.5rem;
-  font-size: min(calc(2rem + 12vw), 9rem);
+  font-size: min(calc(2rem + 12vw), 10rem);
   letter-spacing: -0.2rem;
   word-spacing: 0.3rem;
   line-height: 0.8;

@@ -8,12 +8,9 @@
   --middle-light-gray: rgb(139, 136, 136);
   --middle-gray: rgb(114, 112, 112);
   --dark-gray: rgb(65, 63, 63);
-  --brand-red-1: rgb(202, 81, 81);
-  --brand-red-2: rgb(223, 91, 91);
-  --brand-red-3: rgb(231, 116, 116);
-  --select-border: #777;
-  --select-focus: blue;
-  --select-arrow: var(--select-border);
+  --brand-red-1: rgb(209, 70, 77);
+  --brand-red-2: rgb(226, 80, 87);
+  --brand-red-3: rgb(233, 99, 106);
 }
 
 *,

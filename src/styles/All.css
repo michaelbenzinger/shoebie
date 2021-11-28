@@ -149,8 +149,6 @@
 .products-filter:hover {
   color: var(--middle-gray);
 }
-.products-filter:active {
-}
 .products-filter-active {
   padding-left: 0.5rem;
   background-color: var(--off-white-1);

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Feature from './Feature';
 import '../styles/Home.css';
-import heroBkg from '../media/joshua-rondeau-t0WYycxK--s-unsplash.jpg';
+import heroBkg from '../media/sladjana-karvounis-SNGIg6dinW4-unsplash.jpg';
 import { myProducts } from '../products';
 
 function Home() {

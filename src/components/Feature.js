@@ -15,14 +15,34 @@ function Feature(props) {
         <h2 className="home__feature-title">Hottest Deals</h2>
         <div className="feature__products">
           {displayProducts.map(product => (
-            <Link
-              onClick={() => {
-                props.setProduct(product);
-              }}
-              key={product.id}
-              to={`/product/${product.id}`}
-            >
-              <div className="feature__product">
+            <div className="feature__product">
+              <div className="feature__attribution">
+                Photo by{' '}
+                <a
+                  href={`${product.userLink}?utm_source=michaelbenzinger_shopping_cart&utm_medium=referral`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {product.user}
+                </a>{' '}
+                on{' '}
+                <a
+                  href={
+                    'https://unsplash.com/?utm_source=michaelbenzinger_shopping_cart&utm_medium=referral'
+                  }
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Unsplash
+                </a>
+              </div>
+              <Link
+                onClick={() => {
+                  props.setProduct(product);
+                }}
+                key={product.id}
+                to={`/product/${product.id}`}
+              >
                 <div className="feature__img-container">
                   {product.urls ? (
                     <img
@@ -53,8 +73,8 @@ function Feature(props) {
                     )}
                   </div>
                 </div>
-              </div>
-            </Link>
+              </Link>
+            </div>
           ))}
         </div>
       </div>

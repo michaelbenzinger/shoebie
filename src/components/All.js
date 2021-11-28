@@ -37,6 +37,8 @@ function All(props) {
   const [filteredProducts, setFilteredProducts] = useState(products);
   const [fetching, setFetching] = useState(false);
 
+  window.scrollTo(0, 0);
+
   const productCategories = [
     ...new Set(products.map(item => item.productInfo.category)),
   ];
