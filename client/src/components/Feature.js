@@ -15,7 +15,7 @@ function Feature(props) {
         <h2 className="home__feature-title">Hottest Deals</h2>
         <div className="feature__products">
           {displayProducts.map(product => (
-            <div className="feature__product">
+            <div key={product.id} className="feature__product">
               <div className="feature__attribution">
                 Photo by{' '}
                 <a

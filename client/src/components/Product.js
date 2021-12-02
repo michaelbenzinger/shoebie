@@ -1,4 +1,4 @@
-import { UNSPLASH_ACCESS_KEY } from '../config';
+import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
@@ -29,18 +29,14 @@ function Product(props) {
 
   function getData() {
     console.log('Querying API');
-
-    fetch(
-      `https://api.unsplash.com/photos/${id}/?client_id=${UNSPLASH_ACCESS_KEY}`
-    )
-      .then(res => res.json())
-      .then(json => {
-        const n = myProducts.find(product => product.id === json.id);
-        n.urls = json.urls;
-        n.user = json.user.name;
-        n.userLink = json.user.links.html;
-        setNewProduct(n);
-      });
+    axios.get(`/api/products/${id}`).then(res => {
+      let json = res.data;
+      const n = myProducts.find(product => product.id === json.id);
+      n.urls = json.urls;
+      n.user = json.user.name;
+      n.userLink = json.user.links.html;
+      setNewProduct(n);
+    });
   }
 
   function sizeHandler(e) {
