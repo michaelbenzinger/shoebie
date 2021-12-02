@@ -39,7 +39,7 @@
   color: black;
 }
 
-.product-page__page-container {
+.product-page__layout-container {
   position: relative;
   display: flex;
   flex-direction: row;
@@ -240,4 +240,22 @@
   border-radius: 100rem;
   border: 0px;
   font-size: 1rem;
+}
+
+@media screen and (max-width: 768px) {
+  .product-page__layout-container {
+    display: block;
+  }
+  .product-productinformation {
+    padding-top: 0.6rem;
+  }
+  .product-productimage {
+    padding-top: 1.4rem;
+  }
+  .product-productsizes {
+    padding-bottom: 2rem;
+  }
+  .product-page__img-container {
+    padding-top: calc(15vh + 10vw + 12rem);
+  }
 }

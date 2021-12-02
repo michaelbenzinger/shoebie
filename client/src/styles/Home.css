@@ -16,6 +16,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  padding: 4rem 0;
 }
 .home__hero-title {
   max-width: 8ch;
@@ -29,9 +30,9 @@
   text-transform: uppercase;
 }
 .home__hero-button {
-  margin-top: 1rem;
+  margin-top: calc(0.8rem + 1vw);
   margin-bottom: 2rem;
-  padding: 1.1rem 4rem;
+  padding: calc(0.9rem + 0.1vw) calc(2.5rem + 0.6vw);
   border-radius: 100rem;
   border: 0px;
   font-size: calc(1.1rem + 0.1vw);

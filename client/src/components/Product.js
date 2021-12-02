@@ -17,8 +17,24 @@ function Product(props) {
   const [size, setSize] = useState(null);
   const [viewingModal, setViewingModal] = useState(false);
   const { id } = useParams();
+  const [pageCols, setPageCols] = useState(() => {
+    if (window.innerWidth <= 768) {
+      return 1;
+    } else {
+      return 2;
+    }
+  });
 
-  window.scrollTo(0, 0);
+  window.onresize = handleResize;
+
+  function handleResize() {
+    let width = window.innerWidth;
+    if (width <= 768 && pageCols === 2) {
+      setPageCols(1);
+    } else if (width > 768 && pageCols === 1) {
+      setPageCols(2);
+    }
+  }
 
   useEffect(() => {
     // If there is no product stored in state, fetch it from the API
@@ -44,6 +60,9 @@ function Product(props) {
   }
 
   function addToCartHandler(useProduct) {
+    if (pageCols === 1) {
+      window.scrollTo(0, 0);
+    }
     displayModal();
     const newProduct = JSON.parse(JSON.stringify(useProduct));
     newProduct.size = size;
@@ -155,89 +174,138 @@ function Product(props) {
               </div>
             )}
 
-            <div className="product-page__main">
-              <div className="product-page__img-container">
-                <img
-                  className="product-page__img"
-                  alt={useProduct.productInfo.name}
-                  src={useProduct.urls[featureImageSize]}
+            {pageCols === 2 ? (
+              <div className="product-page__layout-container">
+                <div className="product-page__main">
+                  <ProductImage useProduct={useProduct} />
+                </div>
+                <div className="product-page__sidebar">
+                  <ProductInformation useProduct={useProduct} />
+                  <ProductSizes
+                    useProduct={useProduct}
+                    sizeHandler={sizeHandler}
+                    size={size}
+                    addToCartMethod={addToCartMethod}
+                    addToCartClasses={addToCartClasses}
+                  />
+                </div>
+              </div>
+            ) : (
+              <div className="product-page__layout-container">
+                <ProductInformation useProduct={useProduct} />
+                <ProductImage useProduct={useProduct} />
+                <ProductSizes
+                  useProduct={useProduct}
+                  sizeHandler={sizeHandler}
+                  size={size}
+                  addToCartMethod={addToCartMethod}
+                  addToCartClasses={addToCartClasses}
                 />
               </div>
-              <div className="product-page__attribution">
-                Photo by{' '}
-                <a
-                  href={`${useProduct.userLink}?utm_source=michaelbenzinger_shopping_cart&utm_medium=referral`}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  {useProduct.user}
-                </a>{' '}
-                on{' '}
-                <a
-                  href={
-                    'https://unsplash.com/?utm_source=michaelbenzinger_shopping_cart&utm_medium=referral'
-                  }
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Unsplash
-                </a>
-              </div>
-            </div>
-            <div className="product-page__sidebar">
-              <h1 className="product-page__name">
-                {useProduct.productInfo.name}
-              </h1>
-              <p className="product-page__category">
-                {useProduct.productInfo.brand} –{' '}
-                {useProduct.productInfo.category}
-              </p>
-              {useProduct.productInfo.salePrice ? (
-                <h3 className="product-page__price">
-                  <span className="product-page__sale-price">
-                    {formatUSD(useProduct.productInfo.salePrice, 0)}
-                  </span>
-                  <span className="product-page__price-slash">
-                    {formatUSD(useProduct.productInfo.price, 0)}
-                  </span>
-                </h3>
-              ) : (
-                <h3 className="product-page__price">
-                  {formatUSD(useProduct.productInfo.price, 0)}
-                </h3>
-              )}
-              <div className="product-page__shoe-sizes">
-                {useProduct.productInfo.sizes.map(shoeSize => {
-                  let selectedClass = 'product-page__shoe-size';
-                  let clickHandler = sizeHandler;
-                  if (shoeSize.available === false) {
-                    clickHandler = null;
-                    selectedClass += ' product-page__shoe-size-unavailable';
-                  }
-                  if (shoeSize.mens === size)
-                    selectedClass += ' product-page__shoe-size-selected';
-
-                  return (
-                    <div
-                      onClick={clickHandler}
-                      data-size={shoeSize.mens}
-                      key={shoeSize.mens}
-                      className={selectedClass}
-                    >
-                      M {shoeSize.mens} / W {shoeSize.mens + 1.5}
-                    </div>
-                  );
-                })}
-              </div>
-              <button onClick={addToCartMethod} className={addToCartClasses}>
-                Add to Cart
-              </button>
-            </div>
+            )}
           </div>
         </div>
       </div>
     );
   }
+}
+
+function ProductImage(props) {
+  const { useProduct } = props;
+  return (
+    <div className="product-productimage">
+      <div className="product-page__img-container">
+        <img
+          className="product-page__img"
+          alt={useProduct.productInfo.name}
+          src={useProduct.urls[featureImageSize]}
+        />
+      </div>
+      <div className="product-page__attribution">
+        Photo by{' '}
+        <a
+          href={`${useProduct.userLink}?utm_source=michaelbenzinger_shopping_cart&utm_medium=referral`}
+          target="_blank"
+          rel="noreferrer"
+        >
+          {useProduct.user}
+        </a>{' '}
+        on{' '}
+        <a
+          href={
+            'https://unsplash.com/?utm_source=michaelbenzinger_shopping_cart&utm_medium=referral'
+          }
+          target="_blank"
+          rel="noreferrer"
+        >
+          Unsplash
+        </a>
+      </div>
+    </div>
+  );
+}
+
+function ProductInformation(props) {
+  const { useProduct } = props;
+
+  return (
+    <div className="product-productinformation">
+      <h1 className="product-page__name">{useProduct.productInfo.name}</h1>
+      <p className="product-page__category">
+        {useProduct.productInfo.brand} – {useProduct.productInfo.category}
+      </p>
+      {useProduct.productInfo.salePrice ? (
+        <h3 className="product-page__price">
+          <span className="product-page__sale-price">
+            {formatUSD(useProduct.productInfo.salePrice, 0)}
+          </span>
+          <span className="product-page__price-slash">
+            {formatUSD(useProduct.productInfo.price, 0)}
+          </span>
+        </h3>
+      ) : (
+        <h3 className="product-page__price">
+          {formatUSD(useProduct.productInfo.price, 0)}
+        </h3>
+      )}
+    </div>
+  );
+}
+
+function ProductSizes(props) {
+  const { useProduct, sizeHandler, size, addToCartMethod, addToCartClasses } =
+    props;
+
+  return (
+    <div className="product-productsizes">
+      <div className="product-page__shoe-sizes">
+        {useProduct.productInfo.sizes.map(shoeSize => {
+          let selectedClass = 'product-page__shoe-size';
+          let clickHandler = sizeHandler;
+          if (shoeSize.available === false) {
+            clickHandler = null;
+            selectedClass += ' product-page__shoe-size-unavailable';
+          }
+          if (shoeSize.mens === size)
+            selectedClass += ' product-page__shoe-size-selected';
+
+          return (
+            <div
+              onClick={clickHandler}
+              data-size={shoeSize.mens}
+              key={shoeSize.mens}
+              className={selectedClass}
+            >
+              M {shoeSize.mens} / W {shoeSize.mens + 1.5}
+            </div>
+          );
+        })}
+      </div>
+      <button onClick={addToCartMethod} className={addToCartClasses}>
+        Add to Cart
+      </button>
+    </div>
+  );
 }
 
 const mapStateToProps = state => ({

@@ -26,6 +26,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
 }
 
 code {
@@ -103,6 +104,6 @@ a:hover {
 
 @media screen and (max-width: 800px) {
   :root {
-    --page-margin: 1rem;
+    --page-margin: 0.8rem;
   }
 }

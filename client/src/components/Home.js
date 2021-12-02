@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Feature from './Feature';
 import '../styles/Home.css';
-import heroBkg from '../media/sladjana-karvounis-SNGIg6dinW4-unsplash.jpg';
+import heroBkg from '../media/joshua-rondeau-t0WYycxK--s-unsplash.jpg';
 import { myProducts } from '../products';
 
 function Home() {
@@ -39,10 +39,10 @@ function Home() {
     <div className="home-component">
       <div style={{ backgroundImage: `url(${heroBkg}` }} className="home__hero">
         <div className="home__hero-content">
-          <h1 className="home__hero-title">You snooze, you lose</h1>
+          <h1 className="home__hero-title">Get your kicks.</h1>
           <Link to="/products">
             <button className="home__hero-button button-red">
-              Browse our shoes
+              Browse products
             </button>
           </Link>
         </div>

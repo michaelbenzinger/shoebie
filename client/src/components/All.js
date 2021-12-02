@@ -36,8 +36,25 @@ function All(props) {
   const [sort, setSort] = useState('dateListed,-1');
   const [filteredProducts, setFilteredProducts] = useState(products);
   const [fetching, setFetching] = useState(false);
+  const [showingFilters, setShowingFilters] = useState(() => {
+    if (window.innerWidth <= 768) {
+      return false;
+    } else {
+      return true;
+    }
+  });
+  const [showingFiltersOverride, setShowingFiltersOverride] = useState(false);
 
-  window.scrollTo(0, 0);
+  window.onresize = handleResize;
+
+  function handleResize() {
+    let width = window.innerWidth;
+    if (width <= 768 && showingFilters) {
+      setShowingFilters(false);
+    } else if (width > 768 && !showingFilters) {
+      setShowingFilters(true);
+    }
+  }
 
   const productCategories = [
     ...new Set(products.map(item => item.productInfo.category)),
@@ -112,80 +129,101 @@ function All(props) {
     setFilters(filtersTemp);
   }
 
+  function toggleShowFiltersOverride() {
+    if (showingFiltersOverride) {
+      setShowingFiltersOverride(false);
+    } else {
+      setShowingFiltersOverride(true);
+    }
+  }
+
   return (
     <div className="products-component">
       <div className="contained">
-        <h1>Products</h1>
+        <h1 className="products-title">Products</h1>
         <div className="products-container">
           <div className="products-sidebar">
-            <div className="products-filter-container products-filter-sorts">
-              <h3 className="products-filter-label products-filter-sort-label">
-                Sort By
-              </h3>
-              <select
-                name="filter-sort"
-                id="filter-sort"
-                value={sort}
-                className="products-filter-sort"
-                onChange={e => {
-                  setSort(e.target.value);
-                }}
-              >
-                <option key={'dateListed,1'} value={'dateListed,-1'}>
-                  Newest
-                </option>
-                <option key={'name,1'} value={'name,1'}>
-                  Alphabetical
-                </option>
-                <option key={'price,1'} value={'price,1'}>
-                  Price Low to High
-                </option>
-                <option key={'price,-1'} value={'price,-1'}>
-                  Price High to Low
-                </option>
-              </select>
-            </div>
-            <div className="products-filter-container products-filter-categories">
-              <h3 className="products-filter-label products-filter-categories-label">
-                Category
-              </h3>
-              {productCategories.map(cat => {
-                let categoryClassNames =
-                  'products-filter products-filter-category';
-                if (filters.category && filters.category.includes(cat)) {
-                  categoryClassNames += ' products-filter-active';
-                }
-                return (
-                  <div
-                    onClick={() => toggleFilter({ category: cat })}
-                    key={cat}
-                    className={categoryClassNames}
+            <button
+              onClick={toggleShowFiltersOverride}
+              className="filters-button button-gray button-full-width"
+            >
+              {!showingFiltersOverride ? 'Show Filters' : 'Hide Filters'}
+            </button>
+            {!showingFilters && !showingFiltersOverride ? (
+              <div />
+            ) : (
+              <div className="products-filters-container">
+                <div className="products-filter-container products-filter-sorts">
+                  <h3 className="products-filter-label products-filter-sort-label">
+                    Sort By
+                  </h3>
+                  <select
+                    name="filter-sort"
+                    id="filter-sort"
+                    value={sort}
+                    className="products-filter-sort"
+                    onChange={e => {
+                      setSort(e.target.value);
+                    }}
                   >
-                    {cat}
-                  </div>
-                );
-              })}
-            </div>
-            <div className="products-filter-container products-filter-brands">
-              <h3 className="products-filter-label products-filter-brands-label">
-                Brand
-              </h3>
-              {productBrands.map(brand => {
-                let brandClassNames = 'products-filter products-filter-brand';
-                if (filters.brand && filters.brand.includes(brand)) {
-                  brandClassNames += ' products-filter-active';
-                }
-                return (
-                  <div
-                    onClick={() => toggleFilter({ brand: brand })}
-                    key={brand}
-                    className={brandClassNames}
-                  >
-                    {brand}
-                  </div>
-                );
-              })}
-            </div>
+                    <option key={'dateListed,1'} value={'dateListed,-1'}>
+                      Newest
+                    </option>
+                    <option key={'name,1'} value={'name,1'}>
+                      Alphabetical
+                    </option>
+                    <option key={'price,1'} value={'price,1'}>
+                      Price Low to High
+                    </option>
+                    <option key={'price,-1'} value={'price,-1'}>
+                      Price High to Low
+                    </option>
+                  </select>
+                </div>
+                <div className="products-filter-container products-filter-categories">
+                  <h3 className="products-filter-label products-filter-categories-label">
+                    Category
+                  </h3>
+                  {productCategories.map(cat => {
+                    let categoryClassNames =
+                      'products-filter products-filter-category';
+                    if (filters.category && filters.category.includes(cat)) {
+                      categoryClassNames += ' products-filter-active';
+                    }
+                    return (
+                      <div
+                        onClick={() => toggleFilter({ category: cat })}
+                        key={cat}
+                        className={categoryClassNames}
+                      >
+                        {cat}
+                      </div>
+                    );
+                  })}
+                </div>
+                <div className="products-filter-container products-filter-brands">
+                  <h3 className="products-filter-label products-filter-brands-label">
+                    Brand
+                  </h3>
+                  {productBrands.map(brand => {
+                    let brandClassNames =
+                      'products-filter products-filter-brand';
+                    if (filters.brand && filters.brand.includes(brand)) {
+                      brandClassNames += ' products-filter-active';
+                    }
+                    return (
+                      <div
+                        onClick={() => toggleFilter({ brand: brand })}
+                        key={brand}
+                        className={brandClassNames}
+                      >
+                        {brand}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
           </div>
           <div className="products-main">
             <div className="products-grid">

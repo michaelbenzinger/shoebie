@@ -24,7 +24,7 @@
 }
 
 .nav-links a {
-  margin-left: 2rem;
+  margin-left: calc(1.3rem + 0.5vw);
 }
 .nav-links a:hover {
   text-decoration: underline;
@@ -54,4 +54,10 @@
 .nav a {
   color: white;
   text-decoration: none;
+}
+
+@media screen and (max-width: 800px) {
+  .nav-links {
+    font-size: 1.05rem;
+  }
 }
