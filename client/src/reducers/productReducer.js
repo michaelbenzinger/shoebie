@@ -1,7 +1,8 @@
-import { SET_PRODUCT } from '../actions/types';
+import { SET_PRODUCT, UPDATE_PRODUCTS } from '../actions/types';
 
 const initialState = {
   product: {},
+  products: [],
 };
 
 export default function productReducer(state = initialState, action) {
@@ -10,6 +11,11 @@ export default function productReducer(state = initialState, action) {
       return {
         ...state,
         product: action.payload,
+      };
+    case UPDATE_PRODUCTS:
+      return {
+        ...state,
+        products: action.payload,
       };
     default:
       return state;

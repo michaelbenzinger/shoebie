@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { setProduct } from '../actions/productActions';
+import { setProduct, updateProducts } from '../actions/productActions';
 import { formatUSD } from './Cart';
 
 import { myProducts } from '../products';
@@ -93,16 +93,16 @@ function All(props) {
     products.forEach(product => {
       axios.get(`/api/products/${product.id}`).then(res => {
         let json = res.data;
-        setProducts(
-          products.map(p => {
-            if (p.id === json.id) {
-              p.urls = json.urls;
-              p.user = json.user.name;
-              p.userLink = json.user.links.html;
-            }
-            return p;
-          })
-        );
+        let newProducts = products.map(p => {
+          if (p.id === json.id) {
+            p.urls = json.urls;
+            p.user = json.user.name;
+            p.userLink = json.user.links.html;
+          }
+          return p;
+        });
+        props.updateProducts(newProducts);
+        setProducts(newProducts);
       });
     });
   }
@@ -300,4 +300,4 @@ function All(props) {
   );
 }
 
-export default connect(null, { setProduct })(All);
+export default connect(null, { setProduct, updateProducts })(All);

@@ -1,3 +1,6 @@
+.products-component {
+  padding-top: 4.375rem;
+}
 .products-container {
   display: flex;
   column-gap: 2rem;
@@ -25,10 +28,12 @@
   text-decoration: none;
 }
 
-.product-card:hover .product-card__attribution {
-  top: 0rem;
-  opacity: 1;
-  transition: top 0.2s, opacity 0.3s;
+@media (hover: hover) {
+  .product-card:hover .product-card__attribution {
+    top: 0rem;
+    opacity: 1;
+    transition: top 0.2s, opacity 0.3s;
+  }
 }
 .product-card__attribution {
   position: absolute;

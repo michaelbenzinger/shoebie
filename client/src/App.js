@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import store from './store';
 
 import Nav from './components/Nav';
+import Footer from './components/Footer';
 import Home from './components/Home';
 import Cart from './components/Cart';
 import All from './components/All';
@@ -20,6 +21,7 @@ function App() {
             <Route path="/cart" element={<Cart />} />
             <Route path="/product/:id" element={<Product />} />
           </Routes>
+          <Footer />
         </BrowserRouter>
       </div>
     </Provider>

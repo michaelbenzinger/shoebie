@@ -1,5 +1,6 @@
 :root {
   --page-margin: 2rem;
+  --page-max-width: min(calc(100% - calc(var(--page-margin) * 2)), 1280px);
   --border-radius: 0;
   --off-white-0: #f8f5f5;
   --off-white-1: #f6f2f2;
@@ -29,6 +30,10 @@ body {
   scroll-behavior: smooth;
 }
 
+html {
+  font-size: 16px;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -48,7 +53,7 @@ button {
 }
 
 .contained {
-  max-width: min(calc(100% - calc(var(--page-margin) * 2)), 1140px);
+  max-width: var(--page-max-width);
   margin: 0 auto;
 }
 

@@ -1,6 +1,11 @@
+import axios from 'axios';
 import { connect } from 'react-redux';
+import { useState } from 'react';
 import { modifyItem, deleteItem } from '../actions/cartActions';
+import { updateProducts } from '../actions/productActions';
+import Feature from './Feature';
 import '../styles/Cart.css';
+import { myProducts } from '../products';
 
 export function formatUSD(num, digits) {
   return new Intl.NumberFormat('en-US', {
@@ -11,8 +16,51 @@ export function formatUSD(num, digits) {
 }
 
 function Cart(props) {
-  const { cart } = props;
+  const { cart, initialProducts } = props;
+
+  const [products, setProducts] = useState(() => {
+    return initialProducts.length > 0 ? initialProducts : myProducts;
+  });
+  const [fetching, setFetching] = useState(false);
+
+  if (products.find(product => !product.urls) && !fetching) {
+    setFetching(true);
+    getPhotos();
+  }
+
+  function getPhotos() {
+    console.log('Querying API');
+    products.forEach(product => {
+      axios.get(`/api/products/${product.id}`).then(res => {
+        let json = res.data;
+        let newProducts = products.map(p => {
+          if (p.id === json.id) {
+            p.urls = json.urls;
+            p.user = json.user.name;
+            p.userLink = json.user.links.html;
+          }
+          return p;
+        });
+        props.updateProducts(newProducts);
+        setProducts(newProducts);
+      });
+    });
+  }
+
   const freeShippingThreshold = 70;
+
+  const saleProducts = products
+    .filter(item => item.productInfo.salePrice)
+    .sort((first, second) => {
+      const firstPercentOff =
+        1 - first.productInfo.salePrice / first.productInfo.price;
+      const secondPercentOff =
+        1 - second.productInfo.salePrice / second.productInfo.price;
+      return firstPercentOff < secondPercentOff ? 1 : -1;
+    });
+  const runningProducts = products.filter(
+    item => item.productInfo.category === 'Running'
+  );
 
   const quantities = [];
   for (let i = 1; i <= 12; i++) {
@@ -36,11 +84,11 @@ function Cart(props) {
   if (cart.length === 0) {
     return (
       <div className="cart-component">
-        <div className="contained">
+        <div className="cart-contained contained">
           <h1>Cart</h1>
           <div className="cart__container">
             <div className="cart__main">
-              <p>There are no items in your cart.</p>
+              <div>There are no items in your cart.</div>
             </div>
             <div className="cart__sidebar">
               <h2 className="cart__sidebar-title">Summary</h2>
@@ -68,12 +116,18 @@ function Cart(props) {
             </div>
           </div>
         </div>
+        <Feature title="Hottest Deals" products={saleProducts} size={3} />
+        <Feature
+          title="Running Favorites"
+          products={runningProducts}
+          size={3}
+        />
       </div>
     );
   }
   return (
     <div className="cart-component">
-      <div className="contained">
+      <div className="cart-contained contained">
         <h1>Cart</h1>
         <div className="cart__container">
           <div className="cart__main">
@@ -200,12 +254,19 @@ function Cart(props) {
           </div>
         </div>
       </div>
+      <Feature title="Hottest Deals" products={saleProducts} size={3} />
+      <Feature title="Running Favorites" products={runningProducts} size={3} />
     </div>
   );
 }
 
 const mapStateToProps = state => ({
   cart: state.cart.cart,
+  initialProducts: state.products.products,
 });
 
-export default connect(mapStateToProps, { modifyItem, deleteItem })(Cart);
+export default connect(mapStateToProps, {
+  modifyItem,
+  deleteItem,
+  updateProducts,
+})(Cart);

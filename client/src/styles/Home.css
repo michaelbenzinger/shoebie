@@ -1,5 +1,6 @@
 .home-component {
   position: relative;
+  padding-top: 4.375rem;
 }
 .home__hero {
   animation: fade-in 0.5s;
@@ -12,7 +13,7 @@
   background-position: center;
 }
 .home__hero-content {
-  width: min(calc(100% - calc(var(--page-margin) * 2)), 1140px);
+  width: var(--page-max-width);
   display: flex;
   flex-direction: column;
   align-items: flex-start;

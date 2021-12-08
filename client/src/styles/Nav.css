@@ -1,7 +1,10 @@
 .nav-component {
-  position: relative;
+  position: fixed;
+  width: 100%;
+  min-height: 4.375rem;
+  top: 0;
+  left: 0;
   color: white;
-  /* background: linear-gradient(to top, rgb(211, 60, 93), rgb(219, 61, 61)); */
   background-color: var(--brand-red-1);
   z-index: 11;
 }
@@ -24,7 +27,7 @@
 }
 
 .nav-links a {
-  margin-left: calc(1.3rem + 0.5vw);
+  margin-left: min(calc(1.3rem + 3vw), 3.5rem);
 }
 .nav-links a:hover {
   text-decoration: underline;

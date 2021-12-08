@@ -1,0 +1,14 @@
+.footer-component {
+  width: 100%;
+  min-height: 5rem;
+  margin-top: 5rem;
+  background-color: var(--dark-gray);
+  color: white;
+  font-size: 1.1rem;
+}
+.footer-contained {
+  padding: 3rem 0;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}

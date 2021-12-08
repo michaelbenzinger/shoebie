@@ -4,7 +4,11 @@
 }
 .product-component {
   position: relative;
-  min-height: 100vh;
+  min-height: 85vh;
+  padding-top: 4.375rem;
+}
+.product-page__page-container {
+  position: relative;
 }
 
 .product-page__img-container {

@@ -5,15 +5,18 @@ import '../styles/Feature.css';
 import { formatUSD } from './Cart';
 
 function Feature(props) {
-  const { products, size } = props;
+  const { title, products, size } = props;
   const displayProducts = products.slice(0, size);
   const imageSize = 'regular';
 
   return (
     <div className="home__feature">
       <div className="contained feature-contained">
-        <h2 className="home__feature-title">Hottest Deals</h2>
-        <div className="feature__products">
+        <h2 className="home__feature-title">{title}</h2>
+        <div
+          style={{ gridTemplateColumns: '1fr '.repeat(size) }}
+          className="feature__products"
+        >
           {displayProducts.map(product => (
             <div key={product.id} className="feature__product">
               <div className="feature__attribution">
